@@ -1,0 +1,27 @@
+{
+  "name": "babel-plugin-import",
+  "version": "1.0.0",
+  "description": "练手 babel-plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx babel test/ddd.js -o build/ddd.js",
+    "build": "npx rollup --config"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chant-Lee/babel-plugin-import.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chant-Lee/babel-plugin-import/issues"
+  },
+  "homepage": "https://github.com/Chant-Lee/babel-plugin-import#readme",
+  "dependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/types": "^7.12.12",
+    "rollup": "^2.36.1"
+  }
+}
