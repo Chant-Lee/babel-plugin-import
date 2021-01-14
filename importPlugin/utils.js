@@ -1,11 +1,13 @@
 /**
  * 转换成小写，添加连接符
- * @param {*} _str   字符串
+ * AbC =》 ab${symbol}c
+ * @param {*} str   字符串
  * @param {*} symbol 连接符
  */
-export function transCamel(_str, symbol) {
-  const str = _str[0].toLowerCase() + _str.substr(1)
-  return str.replace(/([A-Z])/g, ($1) => `${symbol}${$1.toLowerCase()}`)
+export function transCamel(str, symbol = '') {
+  return str
+    .replace(str.charAt(0), str.charAt(0).toLowerCase())
+    .replace(/[A-Z]/g, ($1) => $1.replace($1, `${symbol}${$1.toLowerCase()}`))
 }
 
 /**

@@ -115,13 +115,13 @@ class ImportPlugin {
     if (!pluginState.selectedMethods[methodName]) {
       // libraryDirectory：目录，默认 lib
       // style：是否引入样式
-      const { style, libraryDirectory } = this
+      const { style, libraryDirectory, libraryName } = this
       // 组件名转换规则
       const transformedMethodName = transCamel(methodName, '')
       // 兼容 windows 路径
       // path.join('antd/lib/button') == 'antd/lib/button'
       const path = winPath(
-        join(this.libraryName, libraryDirectory, transformedMethodName)
+        join(libraryName, libraryDirectory, transformedMethodName)
       )
       // 生成 import 语句
       // import Button from 'antd/lib/button'
