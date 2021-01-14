@@ -6,9 +6,10 @@ const removePlugin = function ({ types: t, template }) {
       //访问器默认会被注入两个参数 path（类比成dom），state
       ExpressionStatement(path, { opts }) {
         // 拿到object与property, 比如console.log语句的object name为console, property name为log
-        const { object, property } = path.node.expression.callee
+        const { object = {}, property = {} } = path.node.expression.callee
         // 如果表达式语句的object name不为console, 不作处理
-        if (object.name !== 'console') return
+
+        if (!object.name || object.name !== 'console' || !property.name) return
         // 如果不是, 删除此条语句
         if (
           !opts.ignore ||

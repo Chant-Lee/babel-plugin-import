@@ -20,7 +20,9 @@
   "dependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
+    "@babel/helper-module-imports": "^7.12.5",
     "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
     "@babel/types": "^7.12.12",
     "rollup": "^2.36.1"
   }

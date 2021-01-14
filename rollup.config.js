@@ -6,4 +6,11 @@ export default [
       format: 'cjs',
     },
   },
+  {
+    input: 'importPlugin/index.js',
+    output: {
+      file: 'lib/import.js',
+      format: 'cjs',
+    },
+  },
 ]

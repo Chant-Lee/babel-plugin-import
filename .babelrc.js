@@ -1,6 +1,15 @@
 const removePlugin = require('./lib/remove')
-const presets = ['@babel/preset-env']
+const importPlugin = require('./lib/import')
+const presets = ['@babel/preset-env', '@babel/preset-react']
 const plugins = [
+  [
+    importPlugin,
+    {
+      libraryName: 'antd',
+      libraryDirectory: 'lib',
+      style: true,
+    },
+  ],
   [
     removePlugin,
     {
