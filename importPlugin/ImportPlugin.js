@@ -1,5 +1,9 @@
 import { join } from 'path'
-import { addSideEffect, addDefault } from '@babel/helper-module-imports'
+import {
+  addSideEffect,
+  addDefault,
+  addNamed,
+} from '@babel/helper-module-imports'
 
 import { transCamel, winPath } from './utils'
 
@@ -8,12 +12,20 @@ class ImportPlugin {
   libraryDirectory = 'lib' // 按需加载的目录
   style = false // 是否加载样式
   t //babel-type 工具函数
+  transformToDefaultImport = true
 
-  constructor(libraryName, libraryDirectory = 'lib', style = false, t) {
+  constructor(
+    libraryName,
+    libraryDirectory = 'lib',
+    style = false,
+    t,
+    transformToDefaultImport = true
+  ) {
     this.libraryName = libraryName
     this.libraryDirectory = libraryDirectory
     this.style = style
     this.t = t
+    this.transformToDefaultImport = transformToDefaultImport
   }
 
   /**
@@ -28,6 +40,8 @@ class ImportPlugin {
   }
   ProgramEnter(path, state) {
     const pluginState = this.getPluginState(state)
+    // 问题，为啥不直接使用  pluginState.specified = {}
+    //  Object.create(null) 不会继承任何原型方法，也就是它的原型链没有上一层
     pluginState.specified = Object.create(null)
     pluginState.selectedMethods = Object.create(null)
     pluginState.pathsToRemove = []
@@ -125,9 +139,11 @@ class ImportPlugin {
       )
       // 生成 import 语句
       // import Button from 'antd/lib/button'
-      pluginState.selectedMethods[methodName] = addDefault(file.path, path, {
-        nameHint: methodName,
-      })
+      pluginState.selectedMethods[methodName] = this.transformToDefaultImport
+        ? addDefault(file.path, path, {
+            nameHint: methodName,
+          })
+        : addNamed(file.path, methodName, path)
       if (style) {
         // 生成样式 import 语句
         // import 'antd/lib/button/style'
