@@ -17,11 +17,24 @@ const importPlugin = function ({ types: t }) {
   const Program = {
     // ast 入口
     enter(path, { opts = defaultOption }) {
-      const { libraryName, libraryDirectory, style } = opts
+      const {
+        libraryName,
+        libraryDirectory,
+        style,
+        transformToDefaultImport,
+      } = opts
 
       // 初始化插件实例
       if (!plugins) {
-        plugins = [new ImportPlugin(libraryName, libraryDirectory, style, t)]
+        plugins = [
+          new ImportPlugin(
+            libraryName,
+            libraryDirectory,
+            style,
+            t,
+            transformToDefaultImport
+          ),
+        ]
       }
       applyInstance('ProgramEnter', arguments, this)
     },

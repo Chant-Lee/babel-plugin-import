@@ -12,7 +12,7 @@ class ImportPlugin {
   libraryDirectory = 'lib' // 按需加载的目录
   style = false // 是否加载样式
   t //babel-type 工具函数
-  transformToDefaultImport = true
+  transformToDefaultImport = true // 是否有导出默认来判断生成 import 语句
 
   constructor(
     libraryName,
@@ -137,8 +137,9 @@ class ImportPlugin {
       const path = winPath(
         join(libraryName, libraryDirectory, transformedMethodName)
       )
-      // 生成 import 语句
-      // import Button from 'antd/lib/button'
+      // 根据是否有导出 default 来判断使用哪种方法来生成 import 语句，默认为 true
+      // addDefault(path, 'antd/lib/button', { nameHint: 'button' })
+      // addNamed(path, 'button', 'antd/lib/button')
       pluginState.selectedMethods[methodName] = this.transformToDefaultImport
         ? addDefault(file.path, path, {
             nameHint: methodName,

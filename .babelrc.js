@@ -7,6 +7,7 @@ const plugins = [
     {
       libraryName: 'antd',
       libraryDirectory: 'lib',
+      transformToDefaultImport: true,
       style: true,
     },
   ],
